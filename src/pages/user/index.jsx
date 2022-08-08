@@ -33,10 +33,7 @@ class User extends Component{
     }
 
     deleteCustomer = async (id) => {
-        let params = {
-            id: id
-        }
-         let res = await CustomerService.deleteCustomer(params);
+         let res = await CustomerService.deleteCustomer(id);
 
          if(res.status === 200) {
             this.setState({

@@ -47,13 +47,9 @@ class Product extends Component{
         }
     }
 
-  
 
     deleteProduct = async (id) => {
-        let params = {
-            id: id
-        }
-         let res = await ProductService.deleteProduct(params);
+         let res = await ProductService.deleteProduct(id);
 
          if(res.status === 200) {
             this.setState({
@@ -118,7 +114,6 @@ class Product extends Component{
         console.log(this.state.data)   
 
         this.exampleForMap()
-
     };
 
     loadCategoryData = async () => {
@@ -130,7 +125,6 @@ class Product extends Component{
             });
         }
         console.log(this.state.categoryData)   
-
     };
 
 
@@ -255,7 +249,7 @@ class Product extends Component{
                                             }}
                                             style={{ width: '100%' }}
                                             validators={['required',]}
-                                            renderInput={(params) => <TextField {...params} label="Categorty" />}
+                                            renderInput={(params) => <TextField {...params} label="Category" />}
                                         />
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={6} xm={6} >

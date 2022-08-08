@@ -43,7 +43,7 @@ class ProductService {
 
     putProduct = async (data) => {
          const promise = new Promise((resolve, reject) => {
-            axios.put('products', data)
+            axios.put('products/'+data+'')
             .then((res) => {
                 return resolve(res)
             })
@@ -54,9 +54,9 @@ class ProductService {
          return await promise;
     };
     
-    deleteProduct = async (params) => {
+    deleteProduct = async (id) => {
          const promise = new Promise((resolve, reject) => {
-            axios.delete('products', {params: params})
+            axios.delete('products/'+id+'' )
             .then((res) => {
                 return resolve(res)
             }) 

@@ -56,10 +56,7 @@ class Cart extends Component{
     }
 
     deleteCart = async (id) => {
-        let params = {
-            id: id
-        }
-         let res = await CartService.deleteCart(params);
+         let res = await CartService.deleteCart(id);
 
          if(res.status === 200) {
             this.setState({
@@ -262,7 +259,7 @@ class Cart extends Component{
                                             <Stack spacing={2}>
                                                <DatePicker
                                                     views={['day']}
-                                                    label="PickUp Date"
+                                                    label="Date"
                                                     value={this.state.formData.date}
                                                     onChange={(newValue) => {
                                                         let formData = this.state.formData

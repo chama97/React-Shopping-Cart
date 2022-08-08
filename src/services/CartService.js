@@ -57,7 +57,7 @@ class CartService {
     
     putCart = async (data) => {
          const promise = new Promise((resolve, reject) => {
-            axios.put('carts', data)
+            axios.put('carts/'+data+'')
             .then((res) => {
                 return resolve(res)
             })
@@ -68,9 +68,9 @@ class CartService {
          return await promise;
     };
     
-    deleteCart = async (params) => {
+    deleteCart = async (id) => {
          const promise = new Promise((resolve, reject) => {
-            axios.delete('carts', {params: params})
+            axios.delete('carts/'+id+'')
             .then((res) => {
                 return resolve(res)
             }) 

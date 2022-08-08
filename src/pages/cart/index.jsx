@@ -39,10 +39,6 @@ class Cart extends Component{
                 products: [{
                     productId: '',
                     quantity: ''
-                },
-                {
-                    productId: '',
-                    quantity: ''
                 }]
                 
             },
@@ -116,10 +112,11 @@ class Cart extends Component{
 
     loadUserData = async () => {
         let res = await CartService.fetchUserId();
+        let userdatas = res.data.map((names) => names.username);
 
         if (res.status === 200) {
             this.setState({
-                userData: res.data
+                userData: userdatas
             });
             console.log(this.state.userData)   
         } 
@@ -127,13 +124,14 @@ class Cart extends Component{
 
     loadProductData = async () => {
         let res = await CartService.fetchProductId();
+        let prodata = res.data.map((titles) => titles.title);
 
         if (res.status === 200) {
-            this.setState({
-                productData: res.data[0].id
-                
-            });
-            console.log(res.data[0].id)   
+                this.setState({
+                    productData: prodata,
+                });
+       
+            console.log(this.state.productData)   
         } 
     };
 
@@ -226,6 +224,7 @@ class Cart extends Component{
                             <ValidatorForm ref="form" onSubmit={this.submitCart} onError={errors => console.log(errors)}>
                                 <Grid container className={classes.gridss} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                                     <Grid item lg={6} md={6} sm={6} xm={6}  style={{ marginTop:'20px'}} >
+                                   
                                         <Autocomplete
                                             disablePortal
                                             id="combo-box-demo"
@@ -240,13 +239,14 @@ class Cart extends Component{
                                             validators={['required',]}
                                             renderInput={(params) => <TextField {...params} label="User ID" />}
                                         />
+                                  
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={6} xm={6} style={{ marginTop:'20px'}} >
                                         <Autocomplete
                                             disablePortal
                                             id="combo-box-demo"
                                             options={this.state.productData}
-                                            // value={this.state.formData.products.productId}
+                                            value={this.state.formData.products.productId}
                                             onChange={(event, value) => {
                                                 let formData = this.state.formData
                                                 formData.products.productId = value
@@ -254,7 +254,7 @@ class Cart extends Component{
                                             }}
                                             style={{ width: '100%' }}
                                             validators={['required',]}
-                                            renderInput={(params) => <TextField {...params} label="Product ID" />}
+                                            renderInput={(params) => <TextField {...params} label="Product Title" />}
                                         />
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={6} xm={6}  >
@@ -273,20 +273,6 @@ class Cart extends Component{
                                                 />
                                             </Stack>
                                         </LocalizationProvider> 
-                                        {/* <TextValidator
-                                            id="outlined-basic"
-                                            variant="outlined"
-                                            type="date"
-                                            size="small"
-                                            value={this.state.formData.date}
-                                            onChange={(e) => {
-                                                let formData = this.state.formData
-                                                formData.date = e.target.value
-                                                this.setState({ formData })
-                                            }}
-                                            style={{ width: '100%' }}
-                                            validators={['required',]}
-                                        /> */}
                                     </Grid>
                                     
                                     <Grid item lg={6} md={6} sm={6} xm={6}  >
@@ -295,7 +281,7 @@ class Cart extends Component{
                                             variant="outlined"
                                             label="Qty"
                                             size="small"
-                                            value={this.state.formData.products.productId}
+                                            value={this.state.formData.products.quantity}
                                             onChange={(e) => {
                                                 let formData = this.state.formData
                                                 formData.products.productId = e.target.value

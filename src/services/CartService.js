@@ -3,7 +3,7 @@ import axios from "../axios";
 class CartService {
     postCart = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('carts', data)    // 20s
+            axios.post('carts', data)   
                 .then((res) => {
                     return resolve(res)
                 })

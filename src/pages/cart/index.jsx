@@ -97,11 +97,8 @@ class Cart extends Component{
                 products: [{
                     productId: '',
                     quantity: ''
-                },
-                {
-                    productId: '',
-                    quantity: ''
-                }]
+                }, 
+                ]
             }
         });
     };
@@ -109,11 +106,12 @@ class Cart extends Component{
 
     loadUserData = async () => {
         let res = await CartService.fetchUserId();
-        let userdatas = res.data.map((names) => names.username);
+        // let userdatas = res.data.map((names) => names.username);
 
         if (res.status === 200) {
             this.setState({
-                userData: userdatas
+                // userData: userdatas
+                userData: res.data
             });
             console.log(this.state.userData)   
         } 
@@ -121,11 +119,12 @@ class Cart extends Component{
 
     loadProductData = async () => {
         let res = await CartService.fetchProductId();
-        let prodata = res.data.map((titles) => titles.title);
+        // let prodata = res.data.map((titles) => titles.title);
 
         if (res.status === 200) {
                 this.setState({
-                    productData: prodata,
+                    // productData: prodata,
+                    productData: res.data
                 });
        
             console.log(this.state.productData)   
@@ -221,8 +220,7 @@ class Cart extends Component{
                             <ValidatorForm ref="form" onSubmit={this.submitCart} onError={errors => console.log(errors)}>
                                 <Grid container className={classes.gridss} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                                     <Grid item lg={6} md={6} sm={6} xm={6}  style={{ marginTop:'20px'}} >
-                                   
-                                        <Autocomplete
+                                        {/* <Autocomplete
                                             disablePortal
                                             id="combo-box-demo"
                                             options={this.state.userData}
@@ -235,11 +233,29 @@ class Cart extends Component{
                                             style={{ width: '100%' }}
                                             validators={['required',]}
                                             renderInput={(params) => <TextField {...params} label="User ID" />}
+                                        /> */}
+                                        <Autocomplete
+                                            disablePortal
+                                            id="combo-box-demo"
+                                            options={this.state.userData}
+                                            sx={{ width: 300 }}
+                                            renderInput={(params) => <TextField {...params} label="User name" />}
+                                            getOptionLabel={
+                                                (option) => option.username
+                                            }
+                                            onChange={(e, value) => {
+                                                console.log(value.id)
+                                                let formData = this.state.formData
+                                                formData.userId = value.id
+                                                this.setState({ formData });
+                                            }}
+                                            size="small"
+                                            style={{ width: '100%' }}
                                         />
                                   
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={6} xm={6} style={{ marginTop:'20px'}} >
-                                        <Autocomplete
+                                        {/* <Autocomplete
                                             disablePortal
                                             id="combo-box-demo"
                                             options={this.state.productData}
@@ -252,7 +268,26 @@ class Cart extends Component{
                                             style={{ width: '100%' }}
                                             validators={['required',]}
                                             renderInput={(params) => <TextField {...params} label="Product Title" />}
+                                        /> */}
+                                        <Autocomplete
+                                            disablePortal
+                                            id="combo-box-demo"
+                                            options={this.state.productData}
+                                            sx={{ width: 300 }}
+                                            renderInput={(params) => <TextField {...params} label="Product Title" />}
+                                            getOptionLabel={
+                                                (option) => option.title
+                                            }
+                                            onChange={(e, value) => {
+                                                console.log(value.id)
+                                                let formData = this.state.formData
+                                                formData.products.productId = value.id
+                                                this.setState({ formData });
+                                            }}
+                                            size="small"
+                                            style={{ width: '100%' }}
                                         />
+                                        
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={6} xm={6}  >
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -281,7 +316,7 @@ class Cart extends Component{
                                             value={this.state.formData.products.quantity}
                                             onChange={(e) => {
                                                 let formData = this.state.formData
-                                                formData.products.productId = e.target.value
+                                                formData.products.quantity = e.target.value
                                                 this.setState({ formData })
                                             }}
                                             style={{ width: '100%' }}

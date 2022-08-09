@@ -80,7 +80,7 @@ class Sign extends Component{
 
       console.log(res)    //print the promise
   
-      if (res.status === 201) {
+      if (res.status === 200) {
           this.setState({
               alert: true,
               message: 'done',

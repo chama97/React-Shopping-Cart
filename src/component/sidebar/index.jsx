@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+// import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CycloneIcon from '@mui/icons-material/Cyclone';
 import HomeIcon from '@mui/icons-material/Home';
@@ -14,7 +14,12 @@ import CategoryIcon from '@mui/icons-material/Category';
 
 class Sidebar extends Component{
 
-    
+
+    logout = (e) => {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    }
+
     render(){
         let { classes } = this.props
 
@@ -74,12 +79,21 @@ class Sidebar extends Component{
                                 <span className={classes.span}>Home</span>
                             </li>
                         </Link>
-                       <Link to="/" style={{ textDecoration: "none" }}>
+
+                        <button
+                            variant="contained"
+                            style={{backgroundColor:'inherit', color:'white', borderColor:'transparent'}}
+                            label="Login"
+                            onClick={() => {
+                                this.logout()
+                            }}
+                            > 
                             <li className={classes.li}>
                                 <LogoutIcon className={classes.icon} />
-                                <span className={classes.span}>LogOut</span>
+                                <span className={classes.span}>Log-Out</span>
                             </li>
-                        </Link>
+                         
+                        </button>
                     </ul>
                 </div>
 
